@@ -1,0 +1,229 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ren",
+				"renderer	[class]"
+			],
+			[
+				"AS",
+				"ASPECT"
+			],
+			[
+				"nk",
+				"nk_filename"
+			],
+			[
+				"n",
+				"n1_filename"
+			],
+			[
+				"rigi",
+				"rigidbody	*()"
+			],
+			[
+				"rigidbody",
+				"rigidbody	[class]"
+			],
+			[
+				"Ve",
+				"Vector3	[class]"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 367.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Disable Package"
+			],
+			[
+				"space",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/feeley19/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/feeley19/Git/webpage/index.html",
+		"/Users/feeley19/Git/webpage/stylesheets/stylesheet.css",
+		"/Users/feeley19/Git/webpage/project_gobe.html",
+		"/Users/feeley19/Library/Application Support/Sublime Text 2/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/feeley19/Git/webpage/gameindex.html",
+		"/Users/feeley19/Git/webpage/css/font/fontawesome-webfont.svg",
+		"/Users/feeley19/Git/webpage/css/style.css",
+		"/Users/feeley19/Git/webpage/js/init.js",
+		"/Users/feeley19/Git/webpage/css/style-mobile.css",
+		"/Users/feeley19/Git/webpage/css/style-desktop.css",
+		"/Users/feeley19/Git/webpage/css/noscript.css",
+		"/Users/feeley19/Git/webpage/javascripts/main.js",
+		"/Users/feeley19/Git/webpage/stylesheets/print.css",
+		"/Users/feeley19/Downloads/html5-boilerplate-4.3.0/doc/crossdomain.md",
+		"/Users/feeley19/Movies/Projects/Wedding Video/python/duplicate_nuke_file.py",
+		"/Users/feeley19/Downloads/ControllerList-15.plist"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"installed_packages",
+			"installed_pa",
+			"move",
+			"target",
+			"row_half",
+			"SAMEORIGIN",
+			"X-Frame-Options",
+			"alt",
+			"Pong",
+			"work",
+			"Work",
+			"f015",
+			"fa-home",
+			"fa fa-folder",
+			"http://howquickly.com/",
+			"twitter",
+			"button",
+			".com",
+			"button",
+			"byline",
+			"panel",
+			"\"me\"",
+			" ",
+			"me",
+			"byline",
+			"4",
+			"/\")",
+			"'",
+			"string",
+			"karoliina"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"\""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 70.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/feeley19/Library/Application Support/Sublime Text 2/Packages/Package Control/Package Control.sublime-settings"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 316.0,
+	"status_bar_visible": true
+}
