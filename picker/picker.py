@@ -55,14 +55,11 @@ class Phantom(ndb.Model):
 
 
 
-
-
 class Person(ndb.Model):
     """Sub model for representing an author."""
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
     phantom_name=ndb.StructuredProperty(Phantom)
-
 
 
 
@@ -160,8 +157,24 @@ class ResultsPage(webapp2.RequestHandler):
 
 class AdminPage(webapp2.RequestHandler):
 
+    def post(self):
+        print self.request.POST['content']
+        print type(self.request.POST['content'])
+
+        people=Person.query().fetch()
+        template_values = {
+                            'people':people,
+                            'phantoms':getAllPhantoms()}
+
+        template = JINJA_ENVIRONMENT.get_template('admin.html')
+        self.response.write(template.render(template_values))
+
     def get(self):
-        template_values = {}
+        people=Person.query().fetch()
+        template_values = {
+                            'people':people,
+                            'phantoms':getAllPhantoms()}
+
         template = JINJA_ENVIRONMENT.get_template('admin.html')
         self.response.write(template.render(template_values))
 

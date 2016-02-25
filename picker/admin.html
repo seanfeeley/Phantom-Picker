@@ -6,15 +6,15 @@
 
 <html lang="en">
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <head>
 
 
 
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-	<title>Title Goes Here</title>
+    <title>Title Goes Here</title>
 
 
 
@@ -24,10 +24,141 @@
 
 <body>
 
-<p>This is my web page</p>
+
+<table id="adminTable" style="border: 1px solid black">
+    
+
+        
 
 
 
+        {% for person in people %}
+        <tr><td>
+                <input type="text" class="first_name" placeholder="first name" value="{{ person.first_name }}"/>
+            </td>
+            <td>
+            <select onchange='phantomSelectionChanged(this)'>
+              <option value="empty"></option>
+              {% for phantom in phantoms %}
+
+              <option 
+                    {% if person.phantom_name.name==phantom.name %} 
+                        selected="me" 
+                    {% endif %} 
+                    value="{{ phantom.key.id() }}">
+                    {{ phantom.name }}
+                </option>
+              {% endfor %}
+            </select>
+            </td>
+            <td>
+                <input type="text" class="last_name" placeholder="last name" value="{{ person.last_name }}"/>
+            </td>
+            <td>
+                <input type="button" value="Delete" />
+            </td><tr>
+        {% endfor %}
+
+   
+</table>
+<p>
+    <input id="insert" type="button" value="Add Person">
+</p>
+
+
+<input id="save" name="save" type="button" value="Save Changes" />
+
+
+
+<script>
+
+
+$('#adminTable').on('click', 'input[type="button"]', function () {
+    $(this).closest('tr').remove();
+})
+
+
+
+$('#insert').click(function () {
+    $('#adminTable').append(`
+        <tr>
+            <td>
+                <input type="text" class="first_name" placeholder="first name" value=""/>
+            </td>
+            <td>
+            <select onchange='phantomSelectionChanged(this)'>
+              <option value="empty"></option>
+              {% for phantom in phantoms %}
+
+              <option value="{{ phantom.key.id() }}">{{ phantom.name }}</option>
+              {% endfor %}
+            </select>
+            </td>
+            <td>
+                <input type="text" class="last_name" placeholder="last name" value=""/>
+            </td>
+            <td>
+                <input type="button" value="Delete" />
+            </td>
+        <tr>
+        `)
+});
+
+
+function phantomSelectionChanged(caller) {
+    selected=$(caller)
+    changedRow=$(caller).parent().parent()
+
+    phantom_id=selected.val()
+    first_name=changedRow.find('input').eq(0).val()
+    second_name=changedRow.find('input').eq(1).val()
+
+    table=$('#adminTable')
+    
+    table.find('tr').each(function (key, val) {
+        row=$(this)
+        this_first_name=row.find('input').eq(0).val()
+        this_second_name=row.find('input').eq(1).val()
+        if(this_second_name==second_name && this_first_name ==first_name){
+            row.find('select').eq(0).val(phantom_id)
+        }
+        else if (phantom_id==row.find('select').eq(0).val())
+            row.find('select').eq(0).val("empty")
+        });
+       
+}
+
+
+$('#save').click(function(){
+    var dataArr = [];
+
+    $("#adminTable tr").each(function(){
+        row=$(this)
+        first_name=row.find('input').eq(0).val()
+        second_name=row.find('input').eq(1).val()
+        phantom_id=row.find('select').eq(0).val()
+        if(phantom_id)
+        {   
+            array=[first_name,second_name,phantom_id]
+            dataArr.push(array);
+        }
+    });
+
+    $.ajax({
+          type : "POST",
+          url : 'admin',
+          data : "content="+dataArr,
+          success: function(data) {
+             // alert the data from the server
+             console.log(dataArr)
+          },
+          error : function() {
+          }
+        });
+    });
+
+
+</script>
 </body>
 
 
