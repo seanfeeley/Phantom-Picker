@@ -26,6 +26,13 @@
 
 	
 	<a href="form">Pick a name</a>
+
+
+{% if url_linktext=="Logout" %}
+<a href="admin">Admin Panel</a>
+{% endif %}
+     <a href="{{ url|safe }}">{{ url_linktext }}</a>
+
 {% if new_person is not none %}   
 <p><b>{{ new_person.first_name }} {{ new_person.phantom_name.name }} {{ new_person.last_name }}</b></p>
     

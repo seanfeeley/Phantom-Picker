@@ -88,10 +88,23 @@ class MainPage(webapp2.RequestHandler):
             elif possible_persons[0]!=new_person:
                 people.append(possible_persons[0])
 
+        user = users.get_current_user()
+        if user:
+            url = users.create_logout_url(self.request.uri)
+            url_linktext = 'Logout'
+        else:
+            url = users.create_login_url(self.request.uri)
+            url_linktext = 'Login'
+
+
         template_values = {
                         'new_person':new_person,
                         'people':people,
-                        'phantoms':lonely_phantoms
+                        'phantoms':lonely_phantoms,
+
+                       'user': user,
+                       'url': url,
+                        'url_linktext': url_linktext,
         }
 
         template = JINJA_ENVIRONMENT.get_template('index.html')
@@ -137,7 +150,10 @@ class ResultsPage(webapp2.RequestHandler):
 
             possible_persons=Person.query(Person.phantom_name.name==phantom.name).fetch()
             
-            if len(possible_persons)==0:
+            if len(possible_persons)==1 and possible_persons[0].key.id()==person.key.id():
+                possible_persons=[]
+
+            if len(possible_persons)==0 :
                 three_phantoms.append(phantom)
             if len(three_phantoms)==3:
                 break
@@ -158,20 +174,38 @@ class ResultsPage(webapp2.RequestHandler):
 class AdminPage(webapp2.RequestHandler):
 
     def post(self):
-        print self.request.POST['content']
-        print type(self.request.POST['content'])
 
-        people=Person.query().fetch()
-        template_values = {
-                            'people':people,
-                            'phantoms':getAllPhantoms()}
+        matchData=json.loads(str(self.request.POST.get('data')))
 
-        template = JINJA_ENVIRONMENT.get_template('admin.html')
-        self.response.write(template.render(template_values))
+       
+        saved_people=[]
+        for match in matchData:
+            possible_persons=Person.query(Person.first_name==match[0],Person.last_name==match[1]).fetch()
+            phantom=None
+            if match[2]!="empty":
+                phantom=Phantom.get_by_id(int(match[2]))
+            if len(possible_persons)==0:
+                if match[0]!="" and match[1]!="":
+                    person=Person(first_name=match[0],last_name=match[1],phantom_name=phantom)
+                    person.put()
+                    saved_people.append(person)
+            else:
+                for possible_person in possible_persons:
+
+                    possible_person.phantom_name=phantom
+                    possible_person.put()
+                    saved_people.append(possible_person)
+
+        for possiblely_deleted_person in Person.query().fetch():
+            if possiblely_deleted_person not in saved_people:
+                possiblely_deleted_person.key.delete()
+        
+     
 
     def get(self):
         people=Person.query().fetch()
         template_values = {
+                            'saved':False,
                             'people':people,
                             'phantoms':getAllPhantoms()}
 

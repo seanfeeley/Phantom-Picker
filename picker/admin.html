@@ -66,8 +66,10 @@
 </p>
 
 
-<input id="save" name="save" type="button" value="Save Changes" />
+<input id="cancel" name="cancel" type="button" value="Cancel" onclick="location.href='/';"/><input id="save" name="save" type="button" value="Save Changes" />
 
+
+<p id="success_message"></p>
 
 
 <script>
@@ -132,6 +134,7 @@ function phantomSelectionChanged(caller) {
 $('#save').click(function(){
     var dataArr = [];
 
+                $("#success_message").text("Saving...")
     $("#adminTable tr").each(function(){
         row=$(this)
         first_name=row.find('input').eq(0).val()
@@ -147,10 +150,9 @@ $('#save').click(function(){
     $.ajax({
           type : "POST",
           url : 'admin',
-          data : "content="+dataArr,
+          data : {'data':JSON.stringify(dataArr)},
           success: function(data) {
-             // alert the data from the server
-             console.log(dataArr)
+                $("#success_message").text("Changes Saved")
           },
           error : function() {
           }
