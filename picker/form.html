@@ -1,42 +1,20 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-
-        "http://www.w3.org/TR/html4/loose.dtd">
-
-
-
+    "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
-
-
-
-<head>
-
-
-
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-	<title>Title Goes Here</title>
-
-
-
-</head>
-
-
-
-<body>
-
-<form  action="/results?first_name={{ first_name }}&last_name={{ last_name }}" >
-  First name:
-  <input type="text" name="first_name"><br>
-  Last name:
-  <input type="text" name="last_name"><br>
-  <input type="submit" value="Phantom Me!">
-</form>
-
-
-</body>
-
-
-
+    <head>
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+        <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>Phantom Picker Form</title>
+    </head>
+    <body>
+        <div id="ghostly-people">
+            <img src="icons/ghost.png" alt="G-g-g-ghost!!" style="width:259px;height:253px;">
+            <form  action="/results?first_name={{ first_name }}&last_name={{ last_name }}" >
+                <input type="text" id="first-name" placeholder="First name" name="first_name"><br>
+                <input type="text" id="last-name" placeholder="Last name" name="last_name"><br>
+                <input type="submit" id="phantom-me" value="Phantom Me!">
+            </form>
+        </div>
+    </body>
 </html>
-
-

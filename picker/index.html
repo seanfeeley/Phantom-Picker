@@ -1,65 +1,50 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-
-        "http://www.w3.org/TR/html4/loose.dtd">
-
-
-
+    "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
-
-
-
-<head>
-
-
-
-	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-	<title>Title Goes Here</title>
-
-
-
-</head>
-
-
-
-<body>
-
-	
-	<a href="form">Pick a name</a>
-
-
-{% if url_linktext=="Logout" %}
-<a href="admin">Admin Panel</a>
-{% endif %}
-     <a href="{{ url|safe }}">{{ url_linktext }}</a>
-
-{% if new_person is not none %}   
-<p><b>{{ new_person.first_name }} {{ new_person.phantom_name.name }} {{ new_person.last_name }}</b></p>
-    
-{%endif %}
-
-    {% for person in people %}
-   <p>{{ person.first_name }} {{ person.phantom_name.name }} {{ person.last_name }}</p>
-   {% endfor %}
-
-	
-
-    {% for phantom in phantoms %}
-    <p>
-        {{ phantom.name }}
-     </p>  
-
-       
-
-
-    {% endfor %}
-
-
-
-</body>
-
-
-
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+        <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+        <title>Phantom Picker</title>
+    </head>
+    <body>
+        <div id="login-options">
+            {% if url_linktext=="Logout" %}
+            <a href="admin" id="login-options">Admin Panel</a>
+            {% endif %}
+            <a id="login-options" href="{{ url|safe }}">{{ url_linktext }}</a>
+        </div>
+        <div id="ptitle">The Phantom Name Picker</div>
+        {% if new_person is not none %}   
+        <div id="brand-new-person">
+            <div>Welcome to the family<br/> {{ new_person.first_name }} "{{ new_person.phantom_name.name }}" {{ new_person.last_name }}
+            </div>
+        </div>
+        {% endif %}
+        {% if new_person is not none %}
+        <div id="pick-a-name" >
+            <a  id="pick-a-name" href="form">Change your current Phantom name</a>
+        </div>
+        {% else %}
+        <div id="pick-a-name" >
+            <a  id="pick-a-name" href="form">Get a Phantom name</a>
+        </div>
+        {% endif %}
+        <div id="ghostly-people">
+            <div>Look out for your other ghostly brothers and sisters:</div>
+            {% for person in people %}
+            <div>{{ person.first_name }} "{{ person.phantom_name.name }}" {{ person.last_name }}</div>
+            {% endfor %}
+        </div>
+        {% if phantoms is not none %} 
+        <div id="lonely-ghosts">
+        <div>Lonely phantoms still wander these hills at night:</div>
+        {% for phantom in phantoms %}
+        <div>
+            {{ phantom.name }}
+        </div>
+        {% endfor %}
+        </div
+        {% endif %}
+    </body>
 </html>
-
-
