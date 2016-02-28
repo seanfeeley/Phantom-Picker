@@ -9,6 +9,13 @@ import webapp2
 import json
 import random
 
+admin_white_list=["test@example.com",
+                  "feeley19@gmail.com",
+                  "matt@phntms.com",
+                  "josua@phntms.com",
+                  "lydia@phntms.com",
+                  "rx@phntms.com",]
+
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -50,6 +57,8 @@ class Person(ndb.Model):
     """Model For each berson"""
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
+    creator = ndb.StringProperty()
+
     phantom_name=ndb.StructuredProperty(Phantom)
 
 
@@ -89,19 +98,26 @@ class MainPage(webapp2.RequestHandler):
                 people.append(possible_persons[0])
 
         user = users.get_current_user()
+        is_admin=False
+
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
+
+            if user.email() in admin_white_list:
+                is_admin=True
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
+
+        
 
 
         template_values = {
                         'new_person':new_person,
                         'people':people,
                         'phantoms':lonely_phantoms,
-
+                        'is_admin':is_admin,
                        'user': user,
                        'url': url,
                         'url_linktext': url_linktext,
@@ -144,8 +160,14 @@ class ResultsPage(webapp2.RequestHandler):
                                     Person.first_name==first_name,
                                     Person.last_name==last_name).fetch()     
         
+        user = users.get_current_user()
+        user_nickname="guest"
+        if user:
+            user_nickname=user.nickname()
+
+
         if len(possible_persons)==0:
-            person=Person(first_name=first_name,last_name=last_name)
+            person=Person(first_name=first_name,last_name=last_name,creator=user_nickname)
             person.put()
         else:
             person=possible_persons[0]
@@ -186,6 +208,8 @@ class ResultsPage(webapp2.RequestHandler):
 
             possible_persons=Person.query(
                 Person.phantom_name.name==phantom.name).fetch()
+
+
             
             if (len(possible_persons)==1 and 
                     possible_persons[0].key.id()==person.key.id()):
@@ -235,10 +259,16 @@ class AdminPage(webapp2.RequestHandler):
             phantom=None
             if match[2]!="empty":
                 phantom=Phantom.get_by_id(int(match[2]))
+            user = users.get_current_user()
+            user_nickname="guest"
+            if user:
+                user_nickname=user.nickname()
+
             if len(possible_persons)==0:
                 if match[0]!="" and match[1]!="":
                     person=Person(first_name=match[0],
                                   last_name=match[1],
+                                  creator=user_nickname,
                                   phantom_name=phantom)
                     person.put()
                     saved_people.append(person)

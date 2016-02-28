@@ -16,6 +16,12 @@ body {
     font-size: 15px;
     padding: 5px;
 }
+.creator {
+    display: inline;
+   color: #9F9F7D;
+
+    font-size: 20px;
+}
 #ptitle {
     background-color: #D4D4B0;
     padding: 0px 0px 50px 0px;

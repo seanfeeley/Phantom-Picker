@@ -9,7 +9,7 @@
     </head>
     <body>
         <div id="login-options">
-            {% if url_linktext=="Logout" %}
+            {% if is_admin %}
             <a href="admin" id="login-options">Admin Panel</a>
             {% endif %}
             <a id="login-options" href="{{ url|safe }}">{{ url_linktext }}</a>
@@ -17,7 +17,7 @@
         <div id="ptitle">The Phantom Name Picker</div>
         {% if new_person is not none %}   
         <div id="brand-new-person">
-            <div>Welcome to the family<br/> {{ new_person.first_name }} "{{ new_person.phantom_name.name }}" {{ new_person.last_name }}
+            <div>Welcome to the family<br/> {{ new_person.first_name }} "{{ new_person.phantom_name.name }}" {{ new_person.last_name }} <div class="creator">(Added by {{new_person.creator}})</div>
             </div>
         </div>
         {% endif %}
@@ -30,12 +30,14 @@
             <a  id="pick-a-name" href="form">Get a Phantom name</a>
         </div>
         {% endif %}
+        {% if people != [] %}
         <div id="ghostly-people">
             <div>Look out for your other ghostly brothers and sisters:</div>
             {% for person in people %}
-            <div>{{ person.first_name }} "{{ person.phantom_name.name }}" {{ person.last_name }}</div>
+            <div>{{ person.first_name }} "{{ person.phantom_name.name }}" {{ person.last_name }} <div class="creator">(Added by {{person.creator}})</div></div>
             {% endfor %}
         </div>
+        {% endif %}
         {% if phantoms is not none %} 
         <div id="lonely-ghosts">
         <div>Lonely phantoms still wander these hills at night:</div>
